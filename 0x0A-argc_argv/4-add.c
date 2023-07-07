@@ -24,7 +24,7 @@ int check_num(char *str)
 }
 
 /**
- * main - multiplies numbers passed as arguments
+ * main - adds positive numbers passed as arguments
  * @argc: number of arguments
  * @argv: array of arguments
  *
@@ -32,7 +32,7 @@ int check_num(char *str)
  */
 int main(int argc, char *argv[])
 {
-	int count, str_to_int, result = 1;
+	int count, str_to_int, result = 0;
 
 	count = 1;
 	while (count < argc)
@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
 		if (check_num(argv[count]))
 		{
 			str_to_int = atoi(argv[count]);
-			result *= str_to_int;
+			if (str_to_int > 0)
+				result += str_to_int;
 		}
 		else
 		{
