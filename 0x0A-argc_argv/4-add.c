@@ -1,26 +1,73 @@
-#include <ctype.h>
+#include <stdio.h>
+#include "main.h"
+
 /**
- * main - adds positive numbers.
- * @argc: number of command line arguments.
- * @argv: array that contains the program command line arguments.
- * Return: 0 - success.
+ * _atoi - converts a string to an integer
+ * @s: string to be converted
+ *
+ * Return: the int converted from the string
+ */
+int _atoi(char *s)
+{
+	int i, d, n, len, f, digit;
+
+	i = 0;
+	d = 0;
+	n = 0;
+	len = 0;
+	f = 0;
+	digit = 0;
+
+	while (s[len] != '\0')
+		len++;
+
+	while (i < len && f == 0)
+	{
+		if (s[i] == '-')
+			++d;
+
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			digit = s[i] - '0';
+			if (d % 2)
+				digit = -digit;
+			n = n * 10 + digit;
+			f = 1;
+			if (s[i + 1] < '0' || s[i + 1] > '9')
+				break;
+			f = 0;
+		}
+		i++;
+	}
+
+	if (f == 0)
+		return (0);
+
+	return (n);
+}
+
+/**
+ * main - multiplies two numbers
+ * @argc: number of arguments
+ * @argv: array of arguments
+ *
+ * Return: 0 (Success), 1 (Error)
  */
 int main(int argc, char *argv[])
 {
-	int i, j, add = 0;
+	int result, num1, num2;
 
-	for (i = 1; i < argc; i++)
+	if (argc < 3 || argc > 3)
 	{
-		for (j = 0; argv[i][j] != '\0'; j++)
-		{
-			if (!isdigit(argv[i][j]))
-			{
-				printf("Error\n");
-				return (1);
-			}
-		}
-		add += atoi(argv[i]);
+		printf("Error\n");
+		return (1);
 	}
-	printf("%d\n", add);
+
+	num1 = _atoi(argv[1]);
+	num2 = _atoi(argv[2]);
+	result = num1 * num2;
+
+	printf("%d\n", result);
+
 	return (0);
 }
